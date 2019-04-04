@@ -10,12 +10,12 @@ $(async function() {
   const $navLogOut = $("#nav-logout");
 
 
-
   // global storyList variable
   let storyList = null;
 
   // global currentUser variable
   let currentUser = null;
+
 
   await checkIfLoggedIn();
 
@@ -34,10 +34,9 @@ $(async function() {
     const userInstance = await User.login(username, password);
     // set the global user to the user instance
     currentUser = userInstance;
-    console.log(currentUser.loginToken);
     syncCurrentUserToLocalStorage();
+    $navForm.removeClass("hidden");
     loginAndSubmitForm();
-    $submitForm.toggleClass("hidden", false);
 
   });
 
@@ -73,7 +72,9 @@ $(async function() {
     }
 
     const newStory = await storyList.addStory(currentUser, userData);
-    console.log(newStory);
+    
+
+    $allStoriesList.prepend(generateStoryHTML(newStory));
 
   })
 
@@ -86,7 +87,7 @@ $(async function() {
     // refresh the page, clearing memory
     location.reload();
     $submitForm.toggleClass("hidden", true);
-    
+
 
 
 
@@ -131,6 +132,7 @@ $(async function() {
     await generateStories();
 
     if (currentUser) {
+      $submitForm.toggleClass("hidden", false);
       showNavForLoggedInUser();
     }
   }
@@ -195,6 +197,8 @@ $(async function() {
 
     return storyMarkup;
   }
+
+
 
   // hide all elements in elementsArr
   function hideElements() {

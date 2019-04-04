@@ -31,23 +31,22 @@ class StoryList {
      The function should accept the current instance of User who will post the story
      It should also accept an object which with a title, author, and url
      */
-  
+
   async addStory(user, newStory) {
     // TODO - Implement this functions!
     // this function should return the newly created story so it can be used in the script.js file where it will be appended to the DOM
     //POST method?
 
-  const response = await $.post(`${BASE_URL}/stories`, {
-    token: user.loginToken,
-    story: {
-        author: newStory.author,
-        title: newStory.title,
-        url: newStory.url
-    }})
-    
-    let newlyMadeStory = new Story(response);
-
+    const response = await $.post(`${BASE_URL}/stories`, {
+      token: user.loginToken,
+      story: newStory
+    })
+    // console.log(response);
+    let newlyMadeStory = new Story(response.story);
+    this.stories.unshift(newlyMadeStory);
+    // console.log(newlyMadeStory);
     return newlyMadeStory;
+
 
 
   }

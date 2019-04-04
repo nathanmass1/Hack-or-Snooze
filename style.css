@@ -47,6 +47,11 @@ nav {
   margin: 0 3px;
 }
 
+.nav-logout {
+  font-size: 16px;
+  color: blue;
+}
+
 .nav-right {
   margin-left: auto;
 }
