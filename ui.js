@@ -9,6 +9,8 @@ $(async function() {
   const $navLogin = $("#nav-login");
   const $navLogOut = $("#nav-logout");
 
+
+
   // global storyList variable
   let storyList = null;
 
@@ -32,8 +34,11 @@ $(async function() {
     const userInstance = await User.login(username, password);
     // set the global user to the user instance
     currentUser = userInstance;
+    console.log(currentUser.loginToken);
     syncCurrentUserToLocalStorage();
     loginAndSubmitForm();
+    $submitForm.toggleClass("hidden", false);
+
   });
 
   /**
@@ -53,7 +58,24 @@ $(async function() {
     currentUser = newUser;
     syncCurrentUserToLocalStorage();
     loginAndSubmitForm();
+    $submitForm.toggleClass("hidden", false);
+
   });
+
+
+  $submitForm.on("submit", async function(evt){
+    evt.preventDefault();
+
+    let userData = {
+      author: $('#author').val(), 
+      title: $('#title').val(),
+      url: $('#url').val(),
+    }
+
+    const newStory = await storyList.addStory(currentUser, userData);
+    console.log(newStory);
+
+  })
 
   /**
    * Log Out Functionality
@@ -63,7 +85,13 @@ $(async function() {
     localStorage.clear();
     // refresh the page, clearing memory
     location.reload();
+    $submitForm.toggleClass("hidden", true);
+    
+
+
+
   });
+
 
   /**
    * Event Handler for Clicking Login
@@ -73,6 +101,9 @@ $(async function() {
     $loginForm.slideToggle();
     $createAccountForm.slideToggle();
     $allStoriesList.toggle();
+
+   
+
   });
 
   /**
@@ -111,6 +142,8 @@ $(async function() {
     // hide the forms for logging in and signing up
     $loginForm.hide();
     $createAccountForm.hide();
+    // $submitForm.toggleClass("hidden");
+    $submitForm.toggleClass("hidden", false);
 
     // reset those forms
     $loginForm.trigger("reset");
