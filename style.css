@@ -48,14 +48,18 @@ nav {
   margin: 0 3px;
 }
 
-#nav-logout {
+#logout-span {
+  position: absolute; 
+}
+
+/* #nav-logout {
   font-size: 20px;
   color: blue;
   font-weight: bold;
   position: relative;
-  left: 75%;
+  right: 200px; 
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-}
+} */
 
 .nav-right {
   margin-left: auto;

@@ -89,6 +89,18 @@ class User {
     return newUser;
   }
 
+  hasFavorited(storyID) {
+    for (var i = 0; i < this.favorites.length; i++) {
+      let curFavorite = this.favorites[i];
+      if (curFavorite.storyId === storyID){
+        console.log('curFavorite is same')
+        return true; 
+      }
+    }
+    console.log('curFavorite is different');
+    return false; 
+  }
+
   /*
    A class method to log in a user. It returns the user 
    */
@@ -140,12 +152,29 @@ class User {
     return existingUser;
   }
 
-  async appendFavorites(user, storyId) {
-    const response = $.post(`https://hack-or-snooze-v2.herokuapp.com/users/${user.username}/favorites/
-    ${storyId}`, {
-      token: user.loginToken
+  async appendFavorites(storyId) {
+      let response = await $.ajax({
+      url: `https://hack-or-snooze-v2.herokuapp.com/users/${this.username}/favorites/${storyId}`,
+      method: "POST",
+      data: {
+        token: `${this.loginToken}`
+      },
     })
-    console.log(response);
+    this.favorites = response.user.favorites; 
+    console.log(this.favorites);
+    
+  }
+
+  async removeFavorites(storyId) {
+    let response = await $.ajax({
+      url: `https://hack-or-snooze-v2.herokuapp.com/users/${this.username}/favorites/${storyId}`,
+      method: "DELETE",
+      data: {
+        token: this.loginToken
+      }
+    })
+    this.favorites = response.user.favorites;
+    console.log(this.favorites);
   }
 }
 /**

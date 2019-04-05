@@ -6,25 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Hack or Snooze</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
-  <nav>
-    <b><a class="nav-link navbar-brand" href="#" id="nav-all">Hack or Snooze</a></b>
-    <a class="nav-link nav-right" href="#" id="nav-login">login/create user</a>
+  <nav class="navbar">
+  <b><a class="nav-link navbar-brand" href="#" id="nav-all">Hack or Snooze</a></b>
+  <a class="nav-link" href="#" id="nav-favorite">Favorites</a>
+  <a class="nav-link nav-right" href="#" id="nav-login">login/create user</a>
+  <ul class="navbar-nav ml-auto" id="logout-nav">
+    <a class="nav-link" id="nav-logout" href="#">Logout</a>
+  </ul>  
     <span class="nav-link nav-right hidden" id="nav-welcome">
       <a href="#" id="nav-user-profile"></a>
     </span>
-    <a class="hidden" id="nav-logout" href="#">
-      <small>Logout</small>
-    </a>
   </nav>
   <section class="articles-container container">
-    <form action="" class="hidden" id="submit-form">
+    <form action="" class="" id="submit-form">
       <div>
         <label for="author">Author</label>
         <input id="author" required type="text" placeholder="author name">
@@ -47,7 +49,7 @@
       </ol>
     </article>
     <article>
-      <ul id="favorited-articles" class="hidden articles-list">
+      <ul id="favorited-articles" class="articles-list">
       </ul>
     </article>
     <article>
