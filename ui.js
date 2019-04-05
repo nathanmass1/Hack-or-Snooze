@@ -35,7 +35,7 @@ $(async function() {
     // set the global user to the user instance
     currentUser = userInstance;
     syncCurrentUserToLocalStorage();
-    $navForm.removeClass("hidden");
+    // $navForm.removeClass("hidden");
     loginAndSubmitForm();
 
   });
