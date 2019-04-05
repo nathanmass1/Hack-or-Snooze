@@ -44,11 +44,8 @@ class StoryList {
     // console.log(response);
     let newlyMadeStory = new Story(response.story);
     this.stories.unshift(newlyMadeStory);
-    // console.log(newlyMadeStory);
+    user.ownStories.unshift(newlyMadeStory);
     return newlyMadeStory;
-
-
-
   }
 }
 /**
@@ -157,11 +154,10 @@ class User {
       url: `https://hack-or-snooze-v2.herokuapp.com/users/${this.username}/favorites/${storyId}`,
       method: "POST",
       data: {
-        token: `${this.loginToken}`
+        token: this.loginToken
       },
     })
     this.favorites = response.user.favorites; 
-    console.log(this.favorites);
     
   }
 
@@ -173,8 +169,25 @@ class User {
         token: this.loginToken
       }
     })
+
     this.favorites = response.user.favorites;
-    console.log(this.favorites);
+  }
+
+  async deleteStory(storyID) {
+    let response = await $.ajax({
+      url: `https://hack-or-snooze-v2.herokuapp.com/stories/${storyID}`,
+      method: "DELETE",
+      data: {
+        token: this.loginToken
+      },
+    });
+    for (var i = 0; i < this.ownStories.length; i++) {
+      let curOwnedStory = this.ownStories[i];
+      if (curOwnedStory.storyId === response.storyId) {
+        this.ownStories.splice(i, 1); 
+        return curOwnedStory.storyId; 
+      }
+    }
   }
 }
 /**

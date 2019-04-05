@@ -22,6 +22,19 @@ $(async function () {
 
   await checkIfLoggedIn();
 
+//   $(document).ready(function(){
+//     $(window).scroll(function(){
+ 
+//        var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
+//        var  scrolltrigger = 0.95;
+ 
+//        if  ((wintop/(docheight-winheight)) > scrolltrigger) {
+//         generateStories(); 
+//         console.log(we just)
+         
+//        }
+//    });
+//  });
   /**
    * Event listener for logging in.
    *  If successfully we will setup the user instance
@@ -132,25 +145,29 @@ $(async function () {
 
     //Event handler for star click
 
-    $allStoriesList.on("click", '.fa-star', function (evt) {
-      console.log("star clicked");
+    $allStoriesList.on("click", '.fa-star', toggleStar); 
+    
+    async function toggleStar(evt) {
+      // console.log("star clicked");
+      let parentStoryId = $(evt.target).parent().parent().attr('id');
       // debugger;
       if ($(evt.target).hasClass('far')) {
-        $(evt.target).removeClass('far');
-        $(evt.target).addClass('fas');
-        let parentStoryId = $(evt.target).parent().parent().attr('id');
-        currentUser.appendFavorites(parentStoryId);
-        // console.log(currentUser.favorites);
+        await currentUser.appendFavorites(parentStoryId);
       }
       else {
-        $(evt.target).removeClass('fas');
-        $(evt.target).addClass('far');
-        console.log("has Far");
-        let parentStoryId = $(evt.target).parent().parent().attr('id');
-        currentUser.removeFavorites(parentStoryId);
-        // console.log(currentUser.favorites);
+        await currentUser.removeFavorites(parentStoryId);
       };
+      $(evt.target).toggleClass('fas far');
       // $(evt.target).removeClass('far.fa-star'); 
+    };
+
+    $favoritedArticles.on("click", '.fa-star', toggleStar); 
+
+    $allStoriesList.on('click', '.fa-trash', async function(evt) {
+      let removeID = $(evt.target).parent().attr('id'); 
+      let removedStoryID = await currentUser.deleteStory(removeID); 
+      $allStoriesList.remove(`#${removedStoryID}`);
+      generateStories(); 
     });
 
 
@@ -250,6 +267,7 @@ $(async function () {
         <small class="article-author">by ${story.author}</small>
         <small class="article-hostname ${hostName}">(${hostName})</small>
         <small class="article-username">posted by ${story.username}</small>
+        <i class="fa fa-trash">  
       </li>
     `);
 
