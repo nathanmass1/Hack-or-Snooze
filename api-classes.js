@@ -142,6 +142,14 @@ class User {
     );
     return existingUser;
   }
+
+  async appendFavorites(user, storyId) {
+    const response = $.post(`https://hack-or-snooze-v2.herokuapp.com/users/${user.username}/favorites/
+    ${storyId}`, {
+      token: user.loginToken
+    })
+    console.log(response);
+  }
 }
 /**
  * Class to represent a single story. Has one method to update.

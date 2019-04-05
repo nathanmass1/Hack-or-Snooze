@@ -107,6 +107,28 @@ $(async function() {
 
   });
 
+//Event handler for star click
+
+$allStoriesList.on("click", '.fa-star', function(evt) {
+  console.log("star clicked");
+  // debugger;
+  if ($(evt.target).hasClass('far')) {
+    console.log("has Fas");
+    $(evt.target).removeClass('far');
+    $(evt.target).addClass('fas');
+    let parentStoryId = $(evt.target).parent().parent().attr('id');
+    appendFavorites(user, parentStoryId);
+  }
+  else {
+    $(evt.target).removeClass('fas');
+    $(evt.target).addClass('far');
+  };
+  // $(evt.target).removeClass('far.fa-star'); 
+});
+
+
+
+
   /**
    * Event handler for Navigation to Homepage
    */
@@ -185,7 +207,8 @@ $(async function() {
 
     // render story markup
     const storyMarkup = $(`
-      <li id="${story.storyId}">
+      <li id="${story.storyId}" class='list-group-item'>
+      <strong><i class="far fa-star"></i> </strong>
         <a class="article-link" href="${story.url}" target="a_blank">
           <strong>${story.title}</strong>
         </a>

@@ -4,6 +4,7 @@ html {
 
 body {
   margin: 8px 7.5vw;
+  background-color: rgba(184, 197, 253, 0.767);
 }
 
 h1 {
@@ -47,9 +48,13 @@ nav {
   margin: 0 3px;
 }
 
-.nav-logout {
-  font-size: 16px;
+#nav-logout {
+  font-size: 20px;
   color: blue;
+  font-weight: bold;
+  position: relative;
+  left: 75%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 .nav-right {
@@ -195,6 +200,10 @@ form > hr {
 .account-forms-container {
   padding-left: 20px;
 }
+
+
+
+
 
 #create-account-form button {
   margin-bottom: 25px;
